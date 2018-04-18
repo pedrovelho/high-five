@@ -37,7 +37,9 @@ devstatsCritical <- highchart() %>%
                        stacking = "normal",
                        enableMouseTracking = FALSE)
                    ) %>% 
-    hc_series(list(name="critical",data=devstats$critical))
+    hc_series(list(name="minor",data=0),
+              list(name="major",data=0),
+              list(name="critical",data=devstats$critical))
 htmlwidgets::saveWidget(widget = devstatsCritical, file = "./critical.html")
 
 
@@ -53,7 +55,9 @@ devstatsMajor <- highchart() %>%
                        stacking = "normal",
                        enableMouseTracking = FALSE)
                    ) %>% 
-    hc_series(list(name="major",data=devstats$major))
+    hc_series(list(name="minor",data=0),              
+              list(name="major",data=devstats$major),
+              list(name="critical",data=0))
 htmlwidgets::saveWidget(widget = devstatsMajor, file = "./major.html")
 
 ## Minor
@@ -68,5 +72,7 @@ devstatsMinor <- highchart() %>%
                        stacking = "normal",
                        enableMouseTracking = FALSE)
                    ) %>% 
-    hc_series(list(name="minor",data=devstats$minor))
+    hc_series(list(name="minor",data=devstats$minor),              
+              list(name="major",data=0),
+              list(name="critical",data=0))
 htmlwidgets::saveWidget(widget = devstatsMinor, file = "./minor.html")

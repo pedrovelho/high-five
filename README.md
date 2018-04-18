@@ -29,7 +29,7 @@ install.packages("highcharter")
 install.packages("htmlwidgets")
 ```
 
-# Test
+## Test
 
 Go inside the folder and run the command.
 

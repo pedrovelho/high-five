@@ -1,7 +1,8 @@
 #!/usr/bin/env Rscript
+##sudo apt-get install r-base
+##sudo apt-get install pandoc pandoc-citeproc
 ##install.packages("highcharter")
 ##install.packages("htmlwidgets")
-##sudo apt-get install pandoc pandoc-citeproc
 devs <- read.table('sample.data', header=TRUE)
 devstats <- data.frame(devs)
 devstats$total = devstats$minor + devstats$major + devstats$critical
@@ -16,9 +17,7 @@ devstatsSummary <- highchart() %>%
     hc_xAxis(categories = devstats$name) %>% 
     hc_yAxis(title = list(text = "Issues")) %>% 
     hc_plotOptions(column = list(
-                       stacking = "normal",
-                       enableMouseTracking = FALSE)
-                   ) %>%
+                       stacking = "normal")) %>%
     hc_series(list(name="minor",data=devstats$minor),
               list(name="major",data=devstats$major),
               list(name="critical",data=devstats$critical))
@@ -30,13 +29,11 @@ htmlwidgets::saveWidget(widget = devstatsSummary, file = "./summary.html")
 devstats = devstats[order(devstats$critical),]
 devstatsCritical <- highchart() %>% 
     hc_chart(type = "column") %>% 
-    hc_title(text = "CRITICAL issues per developer") %>%
+    hc_title(text = "CRITICAL") %>%
     hc_xAxis(categories = devstats$name) %>% 
     hc_yAxis(title = list(text = "Issues")) %>%
     hc_plotOptions(column = list(
-                       stacking = "normal",
-                       enableMouseTracking = FALSE)
-                   ) %>% 
+                       stacking = "normal")) %>% 
     hc_series(list(name="minor",data=0),
               list(name="major",data=0),
               list(name="critical",data=devstats$critical))
@@ -48,13 +45,11 @@ htmlwidgets::saveWidget(widget = devstatsCritical, file = "./critical.html")
 devstats = devstats[order(devstats$major),]
 devstatsMajor <- highchart() %>% 
     hc_chart(type = "column") %>% 
-    hc_title(text = "MAJOR issues per developer") %>%
+    hc_title(text = "MAJOR") %>%
     hc_xAxis(categories = devstats$name) %>% 
     hc_yAxis(title = list(text = "Issues")) %>%
     hc_plotOptions(column = list(
-                       stacking = "normal",
-                       enableMouseTracking = FALSE)
-                   ) %>% 
+                       stacking = "normal")) %>% 
     hc_series(list(name="minor",data=0),              
               list(name="major",data=devstats$major),
               list(name="critical",data=0))
@@ -65,13 +60,11 @@ htmlwidgets::saveWidget(widget = devstatsMajor, file = "./major.html")
 devstats = devstats[order(devstats$minor),]
 devstatsMinor <- highchart() %>% 
     hc_chart(type = "column") %>% 
-    hc_title(text = "MINOR issues per developer") %>%
+    hc_title(text = "MINOR") %>%
     hc_xAxis(categories = devstats$name) %>% 
     hc_yAxis(title = list(text = "Issues")) %>%
     hc_plotOptions(column = list(
-                       stacking = "normal",
-                       enableMouseTracking = FALSE)
-                   ) %>% 
+                       stacking = "normal")) %>% 
     hc_series(list(name="minor",data=devstats$minor),              
               list(name="major",data=0),
               list(name="critical",data=0))
